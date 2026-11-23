@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-night: #0E1424;
+  --color-night-2: #172036;
+  --color-night-3: #24304D;
+  --color-signal: #FF6B2C;
+  --color-signal-dark: #E0501A;
+  --color-gold: #FFB547;
+  --color-mint: #2ED39A;
+  --color-paper: #F6F4EF;
+  --color-muted: #8C96AD;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
+html, body { background: var(--color-night); color: var(--color-paper); -webkit-tap-highlight-color: transparent; }
+.pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem); }
+.prose-lesson p { margin-bottom: 1rem; line-height: 1.75; color: #D9DEEA; font-size: 1.05rem; }
+.prose-lesson strong { color: #fff; font-weight: 700; }
