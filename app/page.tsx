@@ -4,10 +4,12 @@ import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 
 const modules = [
-  { title: "Akademie", text: "Hormozi-Grundlagen in 6 Lektionen", href: "/akademie", ready: true, emoji: "🎓" },
-  { title: "CLOSER-Praxis", text: "Ganze Gespräche selbst formulieren", href: "/training/closer", ready: true, emoji: "🎯" },
-  { title: "Einwand-Bibliothek", text: "Geld, Zeit, Partner & Co.", href: "/training", ready: false, emoji: "🛡️" },
-  { title: "KI-Rollenspiel", text: "Übe mit einem echten Kunden-Bot", href: "/training", ready: false, emoji: "🤖" },
+  { title: "Akademie", text: "Hormozi-Grundlagen in 6 Lektionen", href: "/akademie", emoji: "🎓" },
+  { title: "KI-Rollenspiel", text: "Übe mit einem KI-Kunden", href: "/training/rollenspiel", emoji: "🤖" },
+  { title: "CLOSER-Praxis", text: "Ganze Gespräche selbst formulieren", href: "/training/closer", emoji: "🎯" },
+  { title: "Bibliothek", text: "Einwände, Vorwände, Skripte", href: "/bibliothek", emoji: "🛡️" },
+  { title: "Karteikarten", text: "5-Minuten-Drill", href: "/karteikarten", emoji: "🃏" },
+  { title: "Vorwand-Spiel", text: "Erkennst du die Ausrede?", href: "/vorwand/spiel", emoji: "🔍" },
 ];
 
 export default function Home() {
@@ -50,7 +52,6 @@ export default function Home() {
               <span className="text-3xl">{m.emoji}</span>
               <span className="mt-3 font-display font-bold leading-tight">{m.title}</span>
               <span className="mt-1 text-sm text-muted">{m.text}</span>
-              {!m.ready && <span className="absolute right-3 top-3 rounded-full bg-night-3 px-2 py-0.5 text-[11px] text-gold">bald</span>}
             </Link>
           ))}
         </div>
