@@ -1,7 +1,7 @@
 import type { Config } from "@netlify/functions";
 import { z } from "zod";
 import { authUser, json, takeAiQuota } from "./_lib/auth.mts";
-import { ask, aiErrorResponse, clip } from "./_lib/ai.mts";
+import { ask, aiErrorResponse, apiKey, clip } from "./_lib/ai.mts";
 
 const COACH = `Du bist ein erfahrener, direkter Verkaufstrainer, der nach den Prinzipien von Alex Hormozi coacht: CLOSER-Framework (Clarify, Label, Overview, Sell the Vacation, Explain away concerns, Reinforce), Value Equation, Einwand vs. Vorwand, anerkennen statt widersprechen, nachfragen, isolieren, lösen, zum Abschluss führen. Du gibst ehrliches, konkretes Feedback auf Deutsch, duzt den Lernenden, lobst nur, was wirklich gut war, und zeigst immer eine bessere Formulierung. Bewerte streng, aber fair: 10 heißt Profi-Niveau.`;
 
@@ -72,7 +72,7 @@ export default async (req: Request) => {
   if (req.method !== "POST") return json({ error: "Methode nicht erlaubt" }, 405);
   const user = await authUser(req);
   if (!user) return json({ error: "Bitte melde dich an, um KI-Feedback zu bekommen." }, 401);
-  if (!process.env.ANTHROPIC_API_KEY) return json({ error: "Die KI ist noch nicht eingerichtet (ANTHROPIC_API_KEY fehlt)." }, 503);
+  if (!apiKey()) return json({ error: "Die KI ist noch nicht eingerichtet (ANTHROPIC_API_KEY fehlt)." }, 503);
 
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return json({ error: "Ungültige Anfrage" }, 400); }
