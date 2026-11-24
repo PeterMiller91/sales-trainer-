@@ -2,7 +2,9 @@ import Anthropic from "@anthropic-ai/sdk";
 
 export const MODEL = "claude-opus-5-5";
 let client: Anthropic | null = null;
-export const ai = () => (client ??= new Anthropic({ maxRetries: 2, timeout: 60_000 }));
+/** Akzeptiert ANTHROPIC_API_KEY oder (wie in Netlify angelegt) API_KEY. */
+export const apiKey = () => process.env.ANTHROPIC_API_KEY || process.env.API_KEY || "";
+export const ai = () => (client ??= new Anthropic({ apiKey: apiKey(), maxRetries: 2, timeout: 60_000 }));
 
 /** Gemeinsamer Aufruf mit serverseitigem Fallback, falls das Modell eine Anfrage ablehnt. */
 export async function ask(params: {

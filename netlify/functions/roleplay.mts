@@ -1,7 +1,7 @@
 import type { Config } from "@netlify/functions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { authUser, json, takeAiQuota } from "./_lib/auth.mts";
-import { ask, aiErrorResponse, clip } from "./_lib/ai.mts";
+import { ask, aiErrorResponse, apiKey, clip } from "./_lib/ai.mts";
 
 const MAX_TURNS = 40;
 
@@ -37,7 +37,7 @@ export default async (req: Request) => {
   if (req.method !== "POST") return json({ error: "Methode nicht erlaubt" }, 405);
   const user = await authUser(req);
   if (!user) return json({ error: "Bitte melde dich an, um das KI-Rollenspiel zu nutzen." }, 401);
-  if (!process.env.ANTHROPIC_API_KEY) return json({ error: "Die KI ist noch nicht eingerichtet (ANTHROPIC_API_KEY fehlt)." }, 503);
+  if (!apiKey()) return json({ error: "Die KI ist noch nicht eingerichtet (ANTHROPIC_API_KEY fehlt)." }, 503);
 
   let body: { setup?: Partial<Setup>; messages?: { role: string; content: string }[] };
   try { body = await req.json(); } catch { return json({ error: "Ungültige Anfrage" }, 400); }

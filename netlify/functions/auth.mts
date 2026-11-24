@@ -20,7 +20,7 @@ export default async (req: Request) => {
   const existing = (await store.get(key, { type: "json" })) as User | null;
 
   if (body.action === "register") {
-    const invite = process.env.INVITE_CODE;
+    const invite = process.env.INVITE_CODE?.trim();
     if (!invite) return json({ error: "Registrierung ist noch nicht freigeschaltet (INVITE_CODE fehlt)." }, 403);
     if (String(body.invite ?? "").trim() !== invite) return json({ error: "Der Einladungscode stimmt nicht." }, 403);
     if (existing) return json({ error: "Diesen Namen gibt es schon. Bitte melde dich an oder wähle einen anderen." }, 409);

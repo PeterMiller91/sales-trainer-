@@ -64,7 +64,7 @@ assert.deepEqual(await r.json(), { progress: { a: { score: 1, total: 2, at: 5 } 
 const rpBody = { setup: { industry: "Fitness", difficulty: 2 }, messages: [{ role: "user", content: "Hallo!" }] };
 assert.equal((await roleplay(req("POST", rpBody))).status, 401, "Rollenspiel ohne Login");
 assert.equal((await roleplay(req("POST", rpBody, token))).status, 503, "ohne API-Key");
-process.env.ANTHROPIC_API_KEY = "sk-test";
+process.env.API_KEY = "sk-test"; // alternativer Name wie in Netlify angelegt
 r = await roleplay(req("POST", rpBody, token));
 assert.equal(r.status, 200); const rp = await r.json();
 assert.equal(rp.reply, "Hm, klingt interessant, aber was kostet das?"); assert.equal(rp.ended, "ja");
