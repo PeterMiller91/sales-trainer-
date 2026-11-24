@@ -5,8 +5,8 @@ import { useProgress } from "@/lib/progress";
 
 const modules = [
   { title: "Akademie", text: "Hormozi-Grundlagen in 6 Lektionen", href: "/akademie", ready: true, emoji: "🎓" },
+  { title: "CLOSER-Praxis", text: "Ganze Gespräche selbst formulieren", href: "/training/closer", ready: true, emoji: "🎯" },
   { title: "Einwand-Bibliothek", text: "Geld, Zeit, Partner & Co.", href: "/training", ready: false, emoji: "🛡️" },
-  { title: "Vorwand-Detektor", text: "Ausreden erkennen und auflösen", href: "/training", ready: false, emoji: "🔍" },
   { title: "KI-Rollenspiel", text: "Übe mit einem echten Kunden-Bot", href: "/training", ready: false, emoji: "🤖" },
 ];
 

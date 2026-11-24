@@ -4,6 +4,10 @@ import { useState } from "react";
 import type { Block, Lesson } from "@/lib/lessons";
 import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
+import { lessonVideos, hormoziSearch } from "@/lib/videos";
+import { lessonExercises } from "@/lib/exercises";
+import { VideoEmbed } from "./VideoEmbed";
+import { FreeTextExercise } from "./FreeTextExercise";
 
 function Rich({ text }: { text: string }) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
@@ -115,6 +119,15 @@ function Quiz({ lesson }: { lesson: Lesson }) {
   );
 }
 
+const searchTerms: Record<string, string> = {
+  "einwand-vs-vorwand": "objections",
+  "warum-menschen-nicht-kaufen": "why people don't buy",
+  "value-equation": "value equation",
+  "closer-framework": "closer sales",
+  "grundhaltung-einwandbehandlung": "how to close",
+  "vorwaende-aufdecken": "think about it",
+};
+
 export function LessonView({ lesson }: { lesson: Lesson }) {
   return (
     <article>
@@ -123,6 +136,13 @@ export function LessonView({ lesson }: { lesson: Lesson }) {
       <h1 className="mt-1 font-display text-3xl font-bold leading-tight">{lesson.title}</h1>
       <p className="mt-2 text-lg text-muted">{lesson.summary}</p>
       <div className="prose-lesson mt-6">{lesson.blocks.map((b, i) => <BlockView key={i} b={b} />)}</div>
+      {lessonVideos[lesson.slug] && <VideoEmbed video={lessonVideos[lesson.slug]} moreQuery={lesson.title} moreHref={hormoziSearch(searchTerms[lesson.slug] ?? lesson.title)} />}
+      {lessonExercises[lesson.slug] && <div className="mt-8"><FreeTextExercise ex={lessonExercises[lesson.slug]} /></div>}
+      {lesson.slug === "closer-framework" && (
+        <Link href="/training/closer" className="mt-4 flex min-h-14 items-center justify-between rounded-2xl bg-night-2 px-5 font-semibold active:scale-[0.98] transition">
+          <span>🎯 Ganze Gespräche üben: CLOSER-Praxis</span><span aria-hidden>→</span>
+        </Link>
+      )}
       <div className="mt-8"><Quiz lesson={lesson} /></div>
     </article>
   );
